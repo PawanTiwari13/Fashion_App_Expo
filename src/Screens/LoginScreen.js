@@ -1,4 +1,4 @@
-import {Alert, Image, StyleSheet, Text, View} from "react-native";
+import {Image, StyleSheet, Text, View} from "react-native";
 import {pixelNormalize} from "../Constants/Size";
 import InputComponent from "./Components/InputComponent";
 import ButtonComponent from "./Components/ButtonComponent";
@@ -9,32 +9,18 @@ function LoginScreen(){
    const [email, setEmail]=useState('');
    const [password, setPassword]=useState('');
    const navigate = useNavigation();
+    const [emptyEmail, setEmptyEmail] = useState(false)
+    const [emptyPassword, setEmptyPassword] = useState(false)
     const handleLogin = () => {
-        if (!email && !password) {
-            // Both email and password are empty
-            Alert.alert(
-                'Empty Fields',
-                'Please enter your email and password to proceed.',
-                [{ text: 'OK', onPress: () => {} }]
-            );
-        } else if (!email) {
-            // Email is empty
-            Alert.alert(
-                'Empty Email',
-                'Please enter your email to proceed.',
-                [{ text: 'OK', onPress: () => {} }]
-            );
-        } else if (!password) {
-            // Password is empty
-            Alert.alert(
-                'Empty Password',
-                'Please enter your password to proceed.',
-                [{ text: 'OK', onPress: () => {} }]
-            );
+        if (email === '') {
+            setEmptyEmail(true);
         } else {
-            // Perform the login logic here
-            // If email and password are not empty
-            // You can make an API request, validate the credentials, etc.
+            setEmptyEmail(false);
+        }
+         if (password  === '') {
+            setEmptyPassword(true);
+        } else {
+            setEmptyPassword(false)
         }
     };
     return (
@@ -48,6 +34,10 @@ function LoginScreen(){
                                     setEmail(text)
                                 }}
                 />
+                {emptyEmail === true && (
+                    <Text style={{marginTop: pixelNormalize(10), marginLeft: pixelNormalize(30), color: 'red'}}> Please
+                        Enter Email</Text>
+                )}
                 <InputComponent placeholder='Enter Email Password'
                                 type='password'
                                 value={password}
@@ -55,6 +45,11 @@ function LoginScreen(){
                                     setPassword(text)
                                 }}
                 />
+                {emptyPassword === true && (
+                    <Text style={{marginTop: pixelNormalize(10), marginLeft: pixelNormalize(30), color: 'red'}}> Please
+                        Enter Password</Text>
+                )}
+
                 <ButtonComponent title='Login'
                                  bgColor='#212121'
                                  textColor='#ffff'
@@ -70,7 +65,7 @@ function LoginScreen(){
                 }}
                 onPress={()=>{
                     navigate.navigate('SignUpScreen')
-                }}> Create New Account ?</Text>
+                }}> Create New Account?</Text>
             </View>
 
         </>

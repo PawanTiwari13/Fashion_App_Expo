@@ -7,6 +7,8 @@ const InputComponent = ({value, onChange, placeholder, type}) => {
             <View style={styles.inputText}>
                 <TextInput placeholder={placeholder}
                            maxLength={20}
+                           value={value}
+                           onChange={onChange}
                            secureTextEntry={type ? true : false}
                            style={{marginLeft: pixelNormalize(10)}}/>
             </View>

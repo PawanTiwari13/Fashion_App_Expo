@@ -12,65 +12,45 @@ const SignUpScreen=()=>{
     const [number, setNumber] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
     const navigate = useNavigation();
+    const [emptyEmail, setEmptyEmail] = useState(false)
+    const [emptyName, setEmptyName] = useState(false)
+    const [emptyNumber, setEmptyNumber] = useState(false)
+    const [emptyPassword, setEmptyPassword] = useState(false)
+    const [emptyConfirmPassword, setEmptyConfirmPassword] = useState(false)
     const handleLogin = () => {
-        if (!name && !number && !email && password && !confirmPassword) {
-            // Both email and password are empty
-            Alert.alert(
-                'Empty Fields',
-                'Please enter your email and password to proceed.',
-                [{ text: 'OK', onPress: () => {} }]
-            );
-        } else if (!name) {
-            // Email is empty
-            Alert.alert(
-                'Empty Email',
-                'Please enter your email to proceed.',
-                [{ text: 'OK', onPress: () => {} }]
-            );
-        } else if (!number) {
-            // Password is empty
-            Alert.alert(
-                'Empty Password',
-                'Please enter your password to proceed.',
-                [{ text: 'OK', onPress: () => {} }]
-            );
-
+        if (name === '') {
+            setEmptyName(true);
+        } else {
+            setEmptyName(false);
         }
-     else if (!email) {
-        // Password is empty
-        Alert.alert(
-            'Empty Password',
-            'Please enter your password to proceed.',
-            [{ text: 'OK', onPress: () => {} }]
-        );
-
-    } else if (!password) {
-    // Password is empty
-    Alert.alert(
-        'Empty Password',
-        'Please enter your password to proceed.',
-        [{ text: 'OK', onPress: () => {} }]
-    );
-
-}
-
-     else if (!confirmPassword) {
-        // Password is empty
-        Alert.alert(
-            'Empty Password',
-            'Please enter your password to proceed.',
-            [{ text: 'OK', onPress: () => {} }]
-        );
-
-    }
-
-    else {
-            // Perform the login logic here
-            // If email and password are not empty
-            // You can make an API request, validate the credentials, etc.
+        if (number ==='') {
+            setEmptyNumber(true);
+        } else if (number.length<10) {
+            setEmptyNumber(true)
+        }
+        else {
+            setEmptyNumber(false)
+        }
+        if (email  === '') {
+            setEmptyEmail(true);
+        } else {
+            setEmptyEmail(false)
+        } if (password  === '') {
+            setEmptyPassword(true);
+        } else {
+            setEmptyPassword(false)
+        } if ( confirmPassword === '') {
+            setEmptyPassword(true);
+        } else {
+            setEmptyConfirmPassword(false)
+        }
+        if (password!==confirmPassword){
+            setEmptyConfirmPassword(true)
+        }
+        else {
+          setEmptyConfirmPassword(false);
         }
     };
-
     return(
         <>
             <View style={{flex: 1 }}>
@@ -80,21 +60,46 @@ const SignUpScreen=()=>{
                    <InputComponent placeholder='Enter Name' value={name} onChange={(text) =>{
                        setName(text)
                    }}/>
+                   {emptyName === true && (
+                       <Text style={{marginTop: pixelNormalize(10), marginLeft: pixelNormalize(30), color: 'red'}}> Please
+                           Enter Name</Text>
+                   )}
+
                    <InputComponent placeholder='Enter Mobile Number' value={number} onChange={(text) =>{
                        setNumber(text)
                    }}/>
+                   {emptyNumber === true && (
+                       <Text style={{marginTop: pixelNormalize(10), marginLeft: pixelNormalize(30), color: 'red'}}> Please
+                           Enter Number</Text>
+                   )}
+
                    <InputComponent placeholder='Enter Email ID' value={email}
                                    onChange={(text) =>{
                                        setEmail(text)
                                    }}/>
+                   {emptyEmail === true && (
+                       <Text style={{marginTop: pixelNormalize(10), marginLeft: pixelNormalize(30), color: 'red'}}> Please
+                           Enter Email</Text>
+                   )}
+
                    <InputComponent placeholder='Enter  Password' type='password' value={password} onChange={(text) =>{
                        setPassword(text)
                    }}/>
+                   {emptyPassword === true && (
+                       <Text style={{marginTop: pixelNormalize(10), marginLeft: pixelNormalize(30), color: 'red'}}> Please
+                           Enter Password</Text>
+                   )}
+
                    <InputComponent placeholder='Enter Confirm Password' type='password' value={confirmPassword}
                                    onChange={(text) =>{
                                        setConfirmPassword(text)
                                    }}
                    />
+                   {emptyConfirmPassword === true && (
+                       <Text style={{marginTop: pixelNormalize(10), marginLeft: pixelNormalize(30), color: 'red'}}> Please
+                           Enter Confirm Password</Text>
+                   )}
+
                    <ButtonComponent title='Login'
                                     bgColor='#212121'
                                     textColor='#ffff'
