@@ -4,6 +4,7 @@ import {createStackNavigator} from "@react-navigation/stack";
 import header from "@react-navigation/stack/src/views/Header/Header";
 import SplashScreen from "./SplashScreen";
 import LoginScreen from "./LoginScreen";
+import SignUpScreen from "./SignUpScreen";
 
 function AppNavigator(){
 const Stack=createStackNavigator();
@@ -13,15 +14,23 @@ const Stack=createStackNavigator();
              <Stack.Screen
              name='SplashScreen'
              options={{
-                 headerShown:false
+                 headerShown:false,
+                 headerTintColor:'#620031'
              }}
              component={SplashScreen}/>
 <Stack.Screen name='LoginScreen'
               options={{
-                  headerShown:false
+                  headerShown:true,
+                  headerStyle:{ backgroundColor:'#95004b'}
               }}
 component={LoginScreen}
 />
+             <Stack.Screen name='SignUpScreen'
+             component={SignUpScreen}
+             options={{
+                 headerShown:true,
+                 headerStyle:{ backgroundColor:'#95004b'}
+             }}/>
          </Stack.Navigator>
         </NavigationContainer>
     )
