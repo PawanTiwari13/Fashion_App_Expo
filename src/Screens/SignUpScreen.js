@@ -1,9 +1,10 @@
-import {Alert, Image, ScrollView, StyleSheet, Text, View} from "react-native";
+import {Image, ScrollView, StyleSheet, Text, View} from "react-native";
 import InputComponent from "./Components/InputComponent";
 import ButtonComponent from "./Components/ButtonComponent";
 import {pixelNormalize} from "../Constants/Size";
 import {useNavigation} from "@react-navigation/native";
 import {useState} from "react";
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const SignUpScreen=()=>{
     const [email, setEmail] = useState('');
@@ -49,6 +50,17 @@ const SignUpScreen=()=>{
         }
         else {
           setEmptyConfirmPassword(false);
+        }
+        return saveData()
+    };
+    const saveData = async () => {
+        if (emptyName === false && emptyNumber === false && emptyEmail === false && emptyPassword === false && emptyConfirmPassword === false) {
+            await AsyncStorage.setItem('NAME', name);
+            await AsyncStorage.setItem('NUMBER', number);
+            await AsyncStorage.setItem('EMAIL', email);
+            await AsyncStorage.setItem('PASSWORD', password);
+            await AsyncStorage.setItem('CONFIRM PASSWORD', confirmPassword);
+            navigate.goBack();
         }
     };
     return(
@@ -100,7 +112,7 @@ const SignUpScreen=()=>{
                            Enter Confirm Password</Text>
                    )}
 
-                   <ButtonComponent title='Login'
+                   <ButtonComponent title='Sign Up'
                                     bgColor='#212121'
                                     textColor='#ffff'
                                     onPress={() => {

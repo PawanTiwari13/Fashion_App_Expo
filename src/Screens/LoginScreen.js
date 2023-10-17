@@ -55,6 +55,8 @@ function LoginScreen(){
                                  textColor='#ffff'
                                  onPress={() => {
                                      handleLogin()
+                                     navigate.navigate('HomePage')
+
                                  }}/>
                 <Text style={{
                     fontSize: pixelNormalize(15),

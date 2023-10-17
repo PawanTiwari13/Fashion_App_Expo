@@ -12,14 +12,12 @@ return(
         borderRadius:pixelNormalize(10),
         alignSelf:'center',
         marginTop:pixelNormalize(50),
-
     }
-
     }
     onPress={()=>{
         onPress()
     }}>
-        <Text style={{color:textColor}}>{title}</Text>
+        <Text style={{color:textColor,fontSize:pixelNormalize(18),fontWeight:'bold'}}>{title}</Text>
     </TouchableOpacity>
     </>
 )
